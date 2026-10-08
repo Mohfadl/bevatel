@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Bevatel</title>
+    <link rel="stylesheet" href="/admin/assets/shared.css">
+    <link rel="stylesheet" href="/admin/assets/dashboard.css">
+</head>
+
+<body> 
+    
+    <bevatel-sidebar active="dashboard"></bevatel-sidebar>
+    <main class="app-page dashboard-page">
+        <bevatel-page-header title="Dashboard" show-menu="false" ></bevatel-page-header> 
+        <div class="dashboard-content"> 
+            <section class="dashboard-main">
+                <h2 class="section-title">Conversations Status</h2>
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <div class="stat-icon stat-icon-open">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 4h16v13H7l-3 3V4Zm2 2v9.2L6.2 15H18V6H6Z"/>
+                            </svg>
+                        </div>
+                        <div class="stat-content">
+                            <span class="stat-label">Open</span>
+                            <strong id="openCount" class="stat-number">0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon stat-icon-resolved">
+                            <svg viewBox="0 0 24 24">
+                                <path
+                                    d="m9.5 16.2-4-4L7 10.8l2.5 2.5L17 5.8l1.5 1.4-9 9ZM12 22a10 10 0 1 1 8.7-5l-1.8-1A8 8 0 1 0 12 20a8 8 0 0 0 7.7-5.8l1.9.5A10 10 0 0 1 12 22Z"
+                                />
+                            </svg>
+                        </div>
+
+
+                        <div class="stat-content">
+                            <span class="stat-label">Resolved</span>
+                            <strong id="resolvedCount" class="stat-number" >0</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon stat-icon-snoozed">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M7 3h10v2H7V3Zm1 4h8v2h-3l3 4v4h-3v4h-2v-4H8v-4l3-4H8V7Zm2 7v1h4v-1l-2-2.7L10 14Z"/>
+                            </svg>
+                        </div>
+
+                        <div class="stat-content">
+                            <span class="stat-label">Snoozed</span>
+                            <strong id="snoozedCount" class="stat-number"> 0 </strong>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="separator"></div>
+
+                <section class="agents-table-card">
+                    <div class="table-wrapper">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Agent</th>
+                                    <th class="number-column">Open</th>
+                                    <th class="number-column">Resolved</th>
+                                    <th class="number-column">Snoozed</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="agentsTableBody">
+                                <tr>
+                                    <td colspan="4" class="loading-cell">
+                                        Loading dashboard...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-footer">
+                        <div class="pagination">
+                            <button
+                                id="previousPage"
+                                class="pagination-button"
+                                type="button"
+                                aria-label="Previous page"
+                            >
+                                ‹
+                            </button>
+
+                            <button
+                                id="nextPage"
+                                class="pagination-button"
+                                type="button"
+                                aria-label="Next page"
+                            >
+                                ›
+                            </button>
+
+                            <span>Go to</span>
+
+                            <input
+                                id="pageInput"
+                                class="page-input"
+                                type="number"
+                                value="1"
+                                min="1"
+                                aria-label="Page number"
+                            >
+
+                            <span id="totalPagesLabel">- 1</span>
+                        </div>
+
+                        <div id="tableResults" class="results-label">
+                            Results: 0 Of 0
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <aside class="agent-status-column">
+                <h2 class="section-title">Agent status</h2>
+                <section class="agent-status-card">
+                    <div class="presence-summary">
+                        <div class="presence-stat">
+                            <div class="presence-icon online-icon">◷</div>
+                            <strong id="onlineCount">0</strong>
+                            <span>Online</span>
+                        </div>
+
+                        <div class="presence-stat">
+                            <div class="presence-icon busy-icon"> ◷ </div>
+                            <strong id="busyCount"> 0 </strong>
+                            <span> Busy </span>
+                        </div>
+
+                        <div class="presence-stat">
+                            <div class="presence-icon offline-icon">◷</div>
+                            <strong id="offlineCount">0</strong>
+                            <span>Offline</span>
+                        </div>
+                    </div>
+ 
+                    <div class="agents-list-heading">Agents List</div>
+                    <div class="agent-filters">
+                        <select id="teamFilter" aria-label="Team">
+                            <option value="">Teams</option>
+                        </select>
+                        <select id="statusFilter" aria-label="Status">
+                            <option value="">Status</option>
+                            <option value="ONLINE">Online</option>
+                            <option value="BUSY">Busy</option>
+                            <option value="OFFLINE">Offline</option>
+                        </select>
+                    </div>
+
+                    <div id="agentsResultCount" class="agents-result-count">
+                        Showing 0 results
+                    </div>
+                    <div id="agentsPresenceList" class="agents-presence-list"></div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/admin/components/app-sidebar.js"></script>
+    <script src="/admin/components/page-header.js"></script>
+    <script src="/admin/assets/dashboard.js"></script>
+</body>
+</html>

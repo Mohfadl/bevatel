@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts | Bevatel</title>
+    <link rel="stylesheet" href="/admin/assets/shared.css">
+    <link rel="stylesheet" href="/admin/assets/contacts.css">
+</head>
+
+<body>
+    <bevatel-sidebar active="contacts"></bevatel-sidebar>
+    <div class="contacts-layout">
+        <aside class="contacts-filter-sidebar">
+            <div class="contacts-filter-title">
+                <span>▣</span>
+                <strong>
+                    All Contacts
+                </strong>
+            </div>
+
+            <div class="contacts-tags">
+                <button id="tags-toggle" class="contacts-tags-title" type="button">
+                    <span>Tagged with</span>
+                    <span id="tags-arrow">⌃</span>
+                </button>
+
+                <div id="tags-container" class="contacts-tags-list">
+                    <button
+                        class="contact-tag active"
+                        data-tag=""
+                        type="button"
+                    >
+                        All Contacts
+                    </button>
+                </div>
+            </div>
+        </aside>
+        <main class="contacts-page">
+            <bevatel-page-header title="Contacts">
+                <button
+                    id="add-segment-button"
+                    class="contacts-header-text-button"
+                    type="button"
+                >
+                    ＋ Add Segment
+                </button>
+
+                <button
+                    id="import-button"
+                    class="app-secondary-button"
+                    type="button"
+                >
+                    ⇧ Import
+                </button>
+
+                <button
+                    id="export-button"
+                    class="app-secondary-button"
+                    type="button"
+                >
+                    ⇩ Export
+                </button>
+
+                <button
+                    id="new-contact-button"
+                    class="app-primary-button"
+                    type="button"
+                >
+                    ＋ New Contact
+                </button>
+
+            </bevatel-page-header>
+            <div class="contacts-content">
+                <section class="app-card contacts-card">
+                    <div class="contacts-toolbar">
+                        <div class="contacts-selection">
+                            <button
+                                id="select-all-button"
+                                class="contacts-select-all"
+                                type="button"
+                            >
+                                Select All
+                            </button>
+
+                            <span id="selected-count" class="contacts-selected-count">
+                                0 Contacts Selected
+                            </span>
+                        </div>
+
+                        <div class="contacts-actions">
+                            <button
+                                id="delete-selected-button"
+                                class="contacts-delete-button hidden"
+                                type="button"
+                            >
+                                🗑 Delete Selected
+                            </button>
+                            <button
+                                id="customize-columns-button"
+                                class="contacts-icon-button"
+                                type="button"
+                                title="Customize columns"
+                            >
+                                ⇄
+                            </button>
+                            <button
+                                id="filter-button"
+                                class="contacts-icon-button"
+                                type="button"
+                                title="Filters"
+                            >
+                                ▼
+                            </button>
+
+                            <div class="contacts-search">
+                                <input
+                                    id="contact-search"
+                                    type="search"
+                                    placeholder="Search contacts..."
+                                    autocomplete="off"
+                                >
+                                <span>🔍</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contacts-table-wrapper">
+                        <table class="contacts-table">
+                            <thead id="contacts-table-head">
+                            </thead>
+                            <tbody id="contacts-table-body">
+                                <tr>
+                                    <td class="contacts-loading">
+                                        Loading contacts...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <footer class="contacts-pagination">
+                        <div class="contacts-pagination-left">
+                            <button
+                                id="previous-page"
+                                class="contacts-page-button"
+                                type="button"
+                                aria-label="Previous page"
+                            >
+                                ‹
+                            </button>
+
+                            <button
+                                id="next-page"
+                                class="contacts-page-button"
+                                type="button"
+                                aria-label="Next page"
+                            >
+                                ›
+                            </button>
+
+                            <span>Go to</span>
+                            <input
+                                id="page-number"
+                                class="contacts-page-number"
+                                type="number"
+                                value="1"
+                                min="1"
+                                aria-label="Page number"
+                            >
+                            <span id="total-contacts">Total 0</span>
+                            <span>Display</span>
+                            <select id="page-size" class="contacts-page-size" aria-label="Contacts per page">
+                                <option value="10">
+                                    10
+                                </option>
+                                <option value="25" selected>
+                                    25
+                                </option>
+                                <option value="50">
+                                    50
+                                </option>
+                                <option value="100">
+                                    100
+                                </option>
+                            </select>
+                        </div>
+                        <div id="pagination-results" class="contacts-pagination-results">
+                            Results: 0 Of 0
+                        </div>
+                    </footer>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <div id="columns-modal" class="contacts-modal-overlay hidden">
+        <div class="contacts-modal contacts-columns-modal">
+            <header class="contacts-modal-header">
+                <h2>
+                    Customize Columns
+                </h2>
+                <button
+                    id="close-columns-modal"
+                    class="contacts-modal-close"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+            </header>
+
+            <div class="contacts-modal-body">
+                <div class="contacts-column-search">
+                    <input
+                        id="column-search"
+                        type="search"
+                        placeholder="Search by name..."
+                    >
+                    <span>
+                        🔍
+                    </span>
+                </div>
+
+                <div class="contacts-columns-summary">
+                    <strong>
+                        Column Name
+                    </strong>
+                    <strong id="columns-count">
+                        0 / 0
+                    </strong>
+                </div>
+                <div id="columns-list" class="columns-list">
+                </div>
+            </div>
+
+            <footer class="contacts-modal-footer">
+                <button
+                    id="cancel-columns-button"
+                    class="contacts-modal-cancel"
+                    type="button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    id="save-columns-button"
+                    class="contacts-modal-save"
+                    type="button"
+                >
+                    Save
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <div id="contact-details-modal" class="contacts-modal-overlay hidden">
+        <div class="contacts-modal contacts-details-modal">
+            <header class="contacts-modal-header">
+                <h2>Contact Details</h2>
+                <button
+                    id="close-contact-details"
+                    class="contacts-modal-close"
+                    type="button"
+                    aria-label="Close"
+                >
+                    ×
+                </button>
+            </header>
+            <div id="contact-details-content" class="contacts-modal-body"></div>
+        </div>
+    </div>
+ 
+    <div id="contacts-toast" class="contacts-toast"></div>
+    <script src="/admin/components/app-sidebar.js"></script>
+    <script src="/admin/components/page-header.js"></script>
+    <script src="/admin/assets/contacts.js"></script>
+</body>
+</html>  

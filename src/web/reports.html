@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <metaname="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports | Bevatel</title>
+    <link rel="stylesheet" href="/admin/assets/shared.css">
+    <link rel="stylesheet" href="/admin/assets/reports.css">
+</head>
+
+<body>
+
+<div class="app-shell">
+    <bevatel-sidebar active="reports"></bevatel-sidebar>
+    <main class="reports-main">
+        <header class="reports-header">
+            <div class="reports-title-wrapper">
+
+                <button
+                    id="sidebar-toggle"
+                    class="sidebar-toggle"
+                    type="button"
+                    aria-label="Toggle sidebar"
+                >
+                    ☰
+                </button>
+
+                <div>
+
+                    <h1>
+                        Reports
+                    </h1>
+
+                    <p>
+                        Live conversation and agent analytics
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="reports-filter">
+
+                <label>
+                    From
+
+                    <input
+                        id="report-from"
+                        type="date"
+                    >
+                </label>
+
+                <label>
+                    To
+
+                    <input
+                        id="report-to"
+                        type="date"
+                    >
+                </label>
+
+                <button
+                    id="apply-report-filter"
+                    type="button"
+                >
+                    Apply
+                </button>
+
+            </div>
+
+        </header>
+
+        <div
+            id="report-error"
+            class="report-error"
+            hidden
+        ></div>
+
+        <section class="report-top-grid">
+
+            <article class="report-card">
+
+                <div class="card-heading">
+
+                    <h2>
+                        Conversations Status
+                    </h2>
+
+                    <span class="live-badge">
+                        ● Live
+                    </span>
+
+                </div>
+
+                <div
+                    class="status-grid"
+                    id="conversation-status"
+                >
+
+                    <div class="metric">
+
+                        <span>
+                            Open
+                        </span>
+
+                        <strong id="status-open">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Unattended
+                        </span>
+
+                        <strong id="status-unattended">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Resolved
+                        </span>
+
+                        <strong id="status-resolved">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Closed
+                        </span>
+
+                        <strong id="status-closed">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Unassigned
+                        </span>
+
+                        <strong id="status-unassigned">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+            <article class="report-card">
+
+                <div class="card-heading">
+
+                    <h2>
+                        Agent Status
+                    </h2>
+
+                    <span class="live-badge">
+                        ● Live
+                    </span>
+
+                </div>
+
+                <div class="agent-status-grid">
+
+                    <div class="metric">
+
+                        <span>
+                            Online
+                        </span>
+
+                        <strong id="agents-online">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Busy
+                        </span>
+
+                        <strong id="agents-busy">
+                            0
+                        </strong>
+
+                    </div>
+
+                    <div class="metric">
+
+                        <span>
+                            Offline
+                        </span>
+
+                        <strong id="agents-offline">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="report-card traffic-card">
+
+            <div class="card-heading">
+
+                <div class="card-title-row">
+
+                    <h2>
+                        Conversation Traffic
+                    </h2>
+
+                    <span class="live-badge">
+                        ● Live
+                    </span>
+
+                </div>
+
+                <button
+                    id="download-report"
+                    class="download-button"
+                    type="button"
+                >
+                    ↓ Download Report
+                </button>
+
+            </div>
+
+            <div
+                id="traffic-container"
+                class="traffic-scroll"
+            >
+
+                <div
+                    id="traffic-heatmap"
+                    class="traffic-heatmap"
+                ></div>
+
+            </div>
+
+        </section>
+
+        <section class="report-card">
+
+            <div class="card-heading">
+
+                <div class="card-title-row">
+
+                    <h2>
+                        Conversations by Agents
+                    </h2>
+
+                    <span class="live-badge">
+                        ● Live
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table class="agents-table">
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            Agent
+                        </th>
+
+                        <th>
+                            Open
+                        </th>
+
+                        <th>
+                            Pending
+                        </th>
+
+                        <th>
+                            Resolved
+                        </th>
+
+                        <th>
+                            Closed
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody id="agents-report-body">
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                            class="empty-table"
+                        >
+                            Loading reports...
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+        <section class="report-card">
+
+            <div class="card-heading">
+
+                <h2>
+                    Conversations by Channel
+                </h2>
+
+            </div>
+
+            <div
+                id="channel-report"
+                class="channel-report"
+            ></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script
+    src="/admin/components/app-sidebar.js"
+></script>
+
+<script
+    src="/admin/assets/reports.js"
+></script>
+
+</body>
+</html>

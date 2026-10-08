@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WhatsApp Campaigns</title>
+  <link rel="stylesheet" href="/admin/assets/shared.css" />
+  <link rel="stylesheet" href="/admin/assets/campaigns.css" />
+</head>
+<body>
+  <bevatel-sidebar active="campaigns"></bevatel-sidebar>
+
+  <main class="app-page campaigns-page">
+    <header class="app-page-header">
+      <div class="app-page-header-left">
+        <button class="app-page-menu-button" type="button" aria-label="Menu">☰</button>
+        <h1>WhatsApp campaigns</h1>
+      </div>
+      <div class="app-page-header-actions">
+        <button id="create-campaign-button" class="app-button app-button-success" type="button">⊕ Create a whatsapp campaign</button>
+      </div>
+    </header>
+
+    <section class="campaign-content">
+      <div class="campaign-toolbar app-card">
+        <select id="status-filter" aria-label="Status">
+          <option value="">All</option>
+          <option value="SCHEDULED">Scheduled</option>
+          <option value="RUNNING">Ongoing</option>
+          <option value="COMPLETED">Completed</option>
+          <option value="FAILED">Failed</option>
+          <option value="CANCELLED">Cancelled</option>
+        </select>
+        <button id="clear-filter" class="app-button app-button-secondary" type="button">Clear</button>
+      </div>
+
+      <div class="campaign-list-card app-card">
+        <div class="campaign-list-header">
+          <h2>WhatsApp Campaigns</h2>
+          <input id="campaign-search" type="search" placeholder="Search By Title ..." />
+        </div>
+        <div id="campaign-message" class="campaign-message hidden"></div>
+        <div class="campaign-table-wrap">
+          <table class="campaign-table">
+            <thead>
+              <tr>
+                <th>Title</th><th>Channel</th><th>Audience</th><th>Status</th>
+                <th>Scheduled</th><th>Recipients</th><th>Sent</th><th>Delivered</th><th>Read</th><th>Failed</th><th></th>
+              </tr>
+            </thead>
+            <tbody id="campaign-table-body"></tbody>
+          </table>
+          <div id="campaign-empty" class="campaign-empty hidden">No campaigns found for this account</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="campaign-modal" class="campaign-modal hidden" role="dialog" aria-modal="true">
+    <div class="campaign-modal-backdrop" data-close-modal></div>
+    <div class="campaign-modal-panel">
+      <div class="campaign-modal-header">
+        <div>
+          <h2>Create a campaign</h2>
+          <p>Proactive messages allow the customer to send outbound messages to contacts and trigger more conversations.</p>
+        </div>
+        <button class="campaign-close" type="button" data-close-modal>×</button>
+      </div>
+
+      <form id="campaign-form">
+        <div class="campaign-modal-body">
+          <label class="campaign-field">
+            <span>Select Channel</span>
+            <select id="channel-account-id" required><option value="">Select WhatsApp channel</option></select>
+          </label>
+
+          <label class="campaign-field">
+            <span>Title</span>
+            <input id="campaign-title" type="text" maxlength="160" placeholder="Please enter the title of campaign" required />
+          </label>
+
+          <label class="campaign-field">
+            <span>Audience</span>
+            <select id="audience-type">
+              <option value="ALL_CONTACTS">All Contacts</option>
+              <option value="LABEL">Contacts by Label</option>
+            </select>
+          </label>
+
+          <label id="label-field" class="campaign-field hidden">
+            <span>Label</span>
+            <select id="audience-label-id"><option value="">Select label</option></select>
+          </label>
+
+          <button id="refresh-labels" class="campaign-refresh" type="button">⟳ Refresh Labels</button>
+
+          <div class="campaign-template-grid">
+            <label class="campaign-field">
+              <span>WhatsApp template name</span>
+              <input id="template-name" type="text" placeholder="example: promotion_offer" required />
+            </label>
+            <label class="campaign-field">
+              <span>Template language</span>
+              <input id="template-language" type="text" value="en" placeholder="en" required />
+            </label>
+          </div>
+
+          <label class="campaign-field">
+            <span>Template components JSON <small>(optional)</small></span>
+            <textarea id="template-components" rows="4" placeholder='[{"type":"body","parameters":[{"type":"text","text":"Customer"}]}]'></textarea>
+          </label>
+
+          <label class="campaign-field">
+            <span>Scheduled time <small>(leave empty to start now)</small></span>
+            <input id="scheduled-at" type="datetime-local" />
+          </label>
+
+          <div id="form-error" class="campaign-form-error hidden"></div>
+        </div>
+
+        <div class="campaign-modal-footer">
+          <button class="campaign-cancel" type="button" data-close-modal>Cancel</button>
+          <button id="campaign-submit" class="app-button app-button-primary" type="submit">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/admin/components/app-sidebar.js"></script>
+  <script src="/admin/assets/campaigns.js"></script>
+</body>
+</html>
